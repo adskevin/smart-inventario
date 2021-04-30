@@ -16,8 +16,8 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('welcome')
-Route.on('/login').render('login')
+// Route.on('/').render('welcome')
+Route.on('/').render('login')
 Route.on('/index').render('master')
 Route.on('/cadastro').render('signin')
 Route.post('/cadastro', 'UserController.create')
