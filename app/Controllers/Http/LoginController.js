@@ -21,12 +21,13 @@ class LoginController {
             session.put("admin", user.admin);
             return response.redirect('/home');
           }
-          // retornar erro ao logar
-          console.log('erro senha');
+          throw new Error('Senha inválida');
+        } catch (error) {
+          session.flash({
+            loginError: 'Email ou senha inválidos',
+            reqEmail: reqEmail
+          })
           return response.redirect('/');
-        } catch (err) {
-          console.log('ero');
-          console.log(err);
         }
     }
 

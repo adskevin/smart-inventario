@@ -25,7 +25,7 @@
                 <div class="field">
                   <label class="label">Email:</label>
                   <p class="control has-icons-left">
-                    <input class="input" type="email" name="email">
+                    <input class="input" type="email" name="email" value={{ flashMessage('reqEmail') }}>
                     <span class="icon is-small is-left">
                       <i class="fas fa-user"></i>
                     </span>
@@ -40,6 +40,11 @@
                     </span>
                   </p>
                 </div>
+                @if(flashMessage('loginError'))
+                  <div class="field is-justify-content-center is-flex has-background-danger-light">
+                    <p class="has-text-danger has-text-weight-semibold">{{ flashMessage('loginError') }}</p>
+                  </div>
+                @endif
                 <p class="control">
                   <button class="button is-primary is-medium is-fullwidth">
                     <span class="icon">
