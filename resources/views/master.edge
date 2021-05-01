@@ -62,7 +62,7 @@
                 </div>
                 <div class="field">
                   <p class="control">
-                    <button class="button is-primary is-medium is-fullwidth">
+                    <button id="btn" class="button is-primary is-medium is-fullwidth">
                       <span class="icon">
                         <i class="fa fa-pen"></i>
                       </span>
@@ -75,7 +75,113 @@
         </div>
       </div>
     </div>
+    <div class="modal" id="myModal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Cadastro</p>
+          <button class="delete" aria-label="close" data-bulma-modal="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="field">
+            <p class="control">
+              <button id="btn" class="button is-primary is-medium is-fullwidth">
+                <span class="icon">
+                  <i class="fa fa-pen"></i>
+                </span>
+                <span> Categorias </span>
+              </button>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <button id="btn" class="button is-primary is-medium is-fullwidth">
+                <span class="icon">
+                  <i class="fa fa-pen"></i>
+                </span>
+                <span> Setor/Área </span>
+              </button>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <button id="btn" class="button is-primary is-medium is-fullwidth">
+                <span class="icon">
+                  <i class="fa fa-pen"></i>
+                </span>
+                <span> Estado de Conservação </span>
+              </button>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <button id="btn" class="button is-primary is-medium is-fullwidth">
+                <span class="icon">
+                  <i class="fa fa-pen"></i>
+                </span>
+                <span> Usuário </span>
+              </button>
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
   </section>
+  <script>
+    class BulmaModal {
+      constructor(selector) {
+        this.elem = document.querySelector(selector)
+        this.close_data()
+      }
+
+      show() {
+        this.elem.classList.toggle('is-active')
+        this.on_show()
+      }
+
+      close() {
+        this.elem.classList.toggle('is-active')
+        this.on_close()
+      }
+
+      close_data() {
+        var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
+        var that = this
+        modalClose.forEach(function (e) {
+          e.addEventListener("click", function () {
+
+            that.elem.classList.toggle('is-active')
+
+            var event = new Event('modal:close')
+
+            that.elem.dispatchEvent(event);
+          })
+        })
+      }
+
+      on_show() {
+        var event = new Event('modal:show')
+
+        this.elem.dispatchEvent(event);
+      }
+
+      addEventListener(event, callback) {
+        this.elem.addEventListener(event, callback)
+      }
+    }
+
+    var btn = document.querySelector("#btn")
+    var mdl = new BulmaModal("#myModal")
+
+    btn.addEventListener("click", function () {
+      mdl.show()
+    })
+
+    mdl.addEventListener('modal:show', function () {
+      console.log("opened")
+    })
+
+  </script>
 </body>
-<script type="text/javascript" src="/node_modules/bulma-accordion/dist/js/bulma-accordion.min.js"></script>
+
 </html>
