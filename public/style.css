@@ -2,7 +2,8 @@
   background: url("/logo.jpeg") no-repeat;
   width: auto;
   height: 65px;
-  background-size: 100%;
+  background-size: contain;
+  background-position: center;
 }
 
 .background-login {
@@ -14,11 +15,4 @@
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-@media (min-width: 600px) {
-  .logo {
-    width: auto;
-    height: 65px;
-  }
 }

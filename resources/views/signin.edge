@@ -10,33 +10,75 @@
   <body>
   <section class="section">
     <div class="container">
-      <form class="box" action="/cadastro" method="POST">
+      <form class="box" action="/newuser" method="POST">
         {{ csrfField() }}
-
         <div class="field">
-          <label class="label">Nome de usuário</label>
+          <label class="label">Nome</label>
           <div class="control">
-            <input name="username" class="input" type="text" placeholder="e.g. ronaldo25">
+            <input name="name" class="input" type="text" placeholder="ex. Maria Joana" value={{ old('name', '') }}>
           </div>
+          @if(getErrorFor('name'))
+            <p class="help is-danger">O nome deve ter 3 caracteres ou mais</p>
+          @endif
         </div>
 
         <div class="field">
           <label class="label">Email</label>
           <div class="control">
-            <input name="email" class="input" type="email" placeholder="e.g. alex@example.com">
+            <input name="email" class="input" type="text" placeholder="ex. alex@exemplo.com" value={{ old('email', '') }}>
           </div>
+          @if(getErrorFor('email'))
+            <p class="help is-danger">Não entendemos este email</p>
+          @endif
         </div>
 
         <div class="field">
           <label class="label">Senha</label>
           <div class="control">
-            <input name="password" class="input" type="password" placeholder="********">
+            <input id="password" name="password" class="input" type="password" placeholder="********">
           </div>
+          @if(getErrorFor('password'))
+            <p class="help is-danger">Este campo deve ser preenchido</p>
+          @endif
+        </div>
+
+        <div class="field">
+          <label class="label">Confirmar Senha</label>
+          <div class="control">
+            <input id="confirmPassword" name="confirmPassword" class="input" type="password" placeholder="********">
+          </div>
+          <p id="rt-password-check" class="is-hidden help is-danger">As senhas devem ser iguais</p>
+          @if(getErrorFor('confirmPassword'))
+            <p class="help is-danger">Este campo deve ser preenchido</p>
+          @endif
+        </div>
+
+        <div class="field">
+          <label class="checkbox">
+            <input name="admin" type="checkbox">
+            Usuário Administrador
+          </label>
         </div>
 
         <button type="submit" class="button is-primary">Enviar</button>
       </form>
     </div>
   </section>
+  <script>
+    let passwordElement = document.getElementById('password');
+    let confirmPasswordElement = document.getElementById('confirmPassword');
+    let rtPasswordCheck = document.getElementById('rt-password-check');
+    passwordElement.oninput = (e) => checkPassword(e);
+    confirmPasswordElement.oninput = (e) => checkPassword(e);
+    function checkPassword(e) {
+      let password = passwordElement.value;
+      let confirmPassword = confirmPasswordElement.value;
+      if ((password != '' && confirmPassword != '') && (confirmPassword != password)) {
+        rtPasswordCheck.classList.remove('is-hidden');
+        return;
+      }
+      rtPasswordCheck.classList.add('is-hidden');
+    }
+  </script>
   </body>
 </html>
