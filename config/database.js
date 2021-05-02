@@ -80,7 +80,7 @@ module.exports = {
   // }
   pg: {
     client: 'pg',
-    connection: `postgres://${ Env.get('DB_USER', 'root') }:${ Env.get('DB_PASSWORD', '') }@${ Env.get('DB_HOST', 'localhost') }:${ Env.get('DB_PORT', '') }/${ Env.get('DB_DATABASE', 'adonis') }?ssl=true`,
+    connection: `postgres://${ Env.get('DB_USER', 'root') }:${ Env.get('DB_PASSWORD', '') }@${ Env.get('DB_HOST', 'localhost') }:${ Env.get('DB_PORT', '') }/${ Env.get('DB_DATABASE') }?ssl=true`,
     healthCheck: false,
   }
 }
