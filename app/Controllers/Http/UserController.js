@@ -142,7 +142,7 @@ class UserController {
       subject: "Recuperação de senha",
       html: `
         <h1>Recuperação de senha</h1><br>
-        <a href="${ Env.get('APP_URL') }/preset/${ hash }/${ reqEmail }">Alterar minha senha</a><br>
+        <a href="${ Env.get('APP_URL', 'https://smart-inventario.herokuapp.com') }/preset/${ hash }/${ reqEmail }">Alterar minha senha</a><br>
         <br>
         <p>Clique no link acima para alterar sua senha</p>
       `
