@@ -49,7 +49,12 @@ class UserController {
   async preset ({ params, session, response }) {
     let userFromBd = await User.findBy('email', params.email);
     if (!userFromBd) {
-      console.log(userFromBd);
+      session.flash({
+        error: true
+      });
+      return response.redirect('/changepass');
+    }
+    if (userFromBd.resethash !== params.hash ) {
       session.flash({
         error: true
       });
