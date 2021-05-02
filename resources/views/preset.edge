@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Smart Inventário - Login</title>
+  <title>Smart Inventário - Recuperar senha</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
@@ -20,45 +20,49 @@
           <article class="card is-rounded">
             <div class="card-content">
               <div class="logotipo"></div>
-              <form action="/auth" method="POST">
+              @if(!flashMessage('emailSent'))
+              <form action="/resemail" method="POST">
                 {{ csrfField() }}
                 <div class="field">
-                  <label class="label">Email:</label>
+                  <label class="label">Digite seu email:</label>
                   <p class="control has-icons-left">
-                    <input class="input" type="email" name="email" value={{ flashMessage('reqEmail') }}>
+                    <input class="input" type="email" name="email" value={{ old('email', '') }}>
                     <span class="icon is-small is-left">
                       <i class="fas fa-user"></i>
                     </span>
                   </p>
+                  @if(getErrorFor('email'))
+                    <p class="help is-danger">Erro ao validar seu email</p>
+                  @endif
                 </div>
-                <div class="field">
-                  <label class="label">Senha:</label>
-                  <p class="control has-icons-left">
-                    <input class="input" type="password" name="password">
-                    <span class="icon is-small is-left">
-                      <i class="fa fa-lock"></i>
-                    </span>
-                  </p>
-                </div>
-                <div class="field is-flex is-flex-direction-row-reverse">
-                  <p class="help has-text-grey-light">
-                    <a class="has-text-grey-light" href="presetview">Esqueci minha senha</a>
-                  </p>
-                </div>
-                @if(flashMessage('loginError'))
-                  <div class="field is-justify-content-center is-flex has-background-danger-light">
-                    <p class="has-text-danger has-text-weight-semibold">{{ flashMessage('loginError') }}</p>
-                  </div>
-                @endif
                 <p class="control">
                   <button class="button is-primary is-medium is-fullwidth">
                     <span class="icon">
-                      <i class="fa fa-user"></i>
+                      <i class="fas fa-envelope"></i>
                     </span>
-                    <span> Logar </span>
+                    <span> Enviar email de recuperação </span>
                   </button>
                 </p>
               </form>
+              @elseif(flashMessage('error'))
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <div class="notification is-danger is-light">
+                      Ocorreu um erro ao validar suas informações. <br>
+                      Por favor, tente novamente.
+                    </div>
+                  </p>
+                </div>
+              @else
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <div class="notification is-success is-light">
+                      Um email foi enviado para você. <br>
+                      Siga as instruções para recuperar sua senha.
+                    </div>
+                  </p>
+                </div>
+              @endif
             </div>
           </article>
         </div>

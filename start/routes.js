@@ -18,7 +18,6 @@ const Route = use('Route')
 
 Route.group(() => {
   Route.get('/home', 'MasterController.home')
-  // Route.on('/cadastro').render('signin')
   Route.get('/signin', 'UserController.signin')
   Route.post('/newuser', 'UserController.newuser')
 }).middleware('checkLogin')
@@ -27,3 +26,8 @@ Route.on('/').render('login')
 Route.post('/auth', 'LoginController.login')
 Route.get('/logout', 'LoginController.logout')
 
+Route.get('/changepass', 'UserController.changepass')
+Route.post('/changepass', 'UserController.savenewpass')
+Route.get('/preset/:hash/:email', 'UserController.preset')
+Route.get('/presetview', 'UserController.presetview')
+Route.post('/resemail', 'UserController.resemail')

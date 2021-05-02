@@ -11,6 +11,7 @@ class UserSchema extends Schema {
       table.string('name', 254).notNullable()
       table.string('password', 60).notNullable()
       table.boolean('admin').notNullable()
+      table.string('resethash')
       table.timestamps()
     })
   }
