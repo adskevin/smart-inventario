@@ -9,23 +9,38 @@
     {{ style('style') }}
   </head>
   <body>
-  @!component('components/navbar', { name: userName })
-  <section class="section background-home">
-    <div class="container">
-      <form class="box" action="/saveedituser" method="POST">
-        {{ csrfField() }}
-        <div class="field">
-          <label class="label">Nome</label>
-          <div class="control">
-            <input name="name" class="input" type="text" placeholder="ex. Maria Joana" value="{{ userName }}">
+    @!component('components/navbar', { name: userName })
+    <section class="hero is-fullheight is-medium background-home is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-centered">
+            <div class='column is-5'>
+              <div class="card is-rounded">
+                <header class="card-header">
+                  <p class="card-header-title">
+                    Editar Perfil
+                  </p>
+                </header>
+                <div class="card-content">
+                  <form action="/saveedituser" method="POST">
+                    {{ csrfField() }}
+                    <div class="field">
+                      <label class="label">Nome</label>
+                      <div class="control">
+                        <input name="name" class="input" type="text" placeholder="ex. Maria Joana" value="{{ userName }}">
+                      </div>
+                      @if(getErrorFor('name'))
+                        <p class="help is-danger">O nome deve ter 3 caracteres ou mais</p>
+                      @endif
+                    </div>
+                    <button type="submit" class="button is-primary">Enviar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-          @if(getErrorFor('name'))
-            <p class="help is-danger">O nome deve ter 3 caracteres ou mais</p>
-          @endif
         </div>
-        <button type="submit" class="button is-primary">Enviar</button>
-      </form>
-    </div>
-  </section>
+      </div>
+    </section>
   </body>
 </html>
