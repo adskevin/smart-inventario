@@ -159,6 +159,26 @@ class UserController {
     });
     return response.redirect('back');
   }
+
+  async edituser ({ request, session, view }) {
+    let userEmail = session.get('email')
+    let userFromBd = await User.findBy('email', userEmail);
+    if (!userFromBd) {
+      return response.redirect('back');
+    }
+    return view.render('edituser', { userName: userFromBd.name })
+  }
+
+  async saveedituser ({ request, session, response }) {
+    let userFromBd = await User.findBy('email', session.get('email'));
+    if (!userFromBd) {;
+      return response.redirect('back');
+    }
+    userFromBd.name = request.input('name');
+    await userFromBd.save();
+    session.put('name', userFromBd.name);
+    return response.redirect('back');
+  }
 }
 
 module.exports = UserController

@@ -20,6 +20,8 @@ Route.group(() => {
   Route.get('/home', 'MasterController.home')
   Route.get('/signin', 'UserController.signin')
   Route.post('/newuser', 'UserController.newuser')
+  Route.get('/edituser', 'UserController.edituser')
+  Route.post('/saveedituser', 'UserController.saveedituser')
 }).middleware('checkLogin')
 
 Route.on('/').render('login')

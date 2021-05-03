@@ -1,0 +1,32 @@
+<nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/home">
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="navbar-item has-dropdown is-hoverable has-text-white has-text-weight-semibold">
+          <i class="fas fa-user mt-1"></i>
+          <span class="ml-3">{{ name }}</span>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="/edituser">
+              <span>Editar perfil</span>
+            </a>
+            <a class="navbar-item" href="/logout">
+              <span>Sair</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</nav>
