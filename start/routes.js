@@ -18,10 +18,17 @@ const Route = use('Route')
 
 Route.group(() => {
   Route.get('/home', 'MasterController.home')
+
   Route.get('/signin', 'UserController.signin')
   Route.post('/newuser', 'UserController.newuser')
   Route.get('/edituser', 'UserController.edituser')
   Route.post('/saveedituser', 'UserController.saveedituser')
+
+  Route.post('/newcategory', 'CategoryController.newcategory')
+  Route.delete('/deletecategory/:id', 'CategoryController.deletecategory')
+  Route.get('/categories', 'CategoryController.categories')
+  Route.get('/editcategory/:id', 'CategoryController.editview')
+  Route.post('/editcategory', 'CategoryController.editcategory')
 }).middleware('checkLogin')
 
 Route.on('/').render('login')

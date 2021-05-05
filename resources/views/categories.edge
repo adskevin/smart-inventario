@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Categorias - Smart Inventário</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" />
+  {{ style('style') }}
+</head>
+
+<body>
+  @!component('components/navbar', { name: name })
+  <section class="hero is-fullheight is-medium background-home is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class='column is-12'>
+            <div class="card is-rounded">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Categorias
+                </p>
+                <button id="btn-adicionar" class="button is-primary is-medium">
+                  <span class="icon">
+                    <i class="fa fa-pen"></i>
+                  </span>
+                  <span> Adicionar </span>
+                </button>
+              </header>
+              <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Descrição</th>
+                    <th style="width: 120px;">Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @each(category in categories)
+                    <tr>
+                      <td>
+                        {{ category.description }}
+                      </td>
+                      <td>
+                        <a id="btn-editars" class="button is-warning is-outlined" href="/editcategory/{{ category.id }}">
+                          <span class="icon is-small">
+                            <i class="fas fa-edit" aria-hidden="true"></i>
+                          </span>
+                          <span>Editar</span>
+                        </a>
+                        <form action="{{ 'deletecategory/' + category.id + '?_method=DELETE' }}" method="POST">
+                          {{ csrfField() }}
+                          <button type="submit" class="button is-danger is-outlined">
+                              <span class="icon is-small">
+                                  <i class="fa fa-times" aria-hidden="true"></i>
+                              </span>
+                              <span>Remover</span>
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  @else
+                    <tr>
+                      <td colspan="3" class="has-text-centered">Nenhuma categoria foi criada ainda!</td>
+                    </tr>
+                  @endeach
+                </tbody>
+              </table>
+              <div class="card-content">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="myModal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Adicionar categoria</p>
+          <button class="delete" aria-label="close" data-bulma-modal="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <form action="/newcategory" method="POST">
+            {{ csrfField() }}
+            <div class="field">
+              <label class="label">Descrição</label>
+              <div class="control">
+                <input name="description" class="input" type="text" value="{{ description }}">
+              </div>
+              @if(getErrorFor('description'))
+                <p class="help is-danger">A descrição deve ter 3 caracteres ou mais</p>
+              @endif
+            </div>
+            <button type="submit" class="button is-primary">Salvar</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </section>
+  <script>
+    class BulmaModal {
+      constructor(selector) {
+        this.elem = document.querySelector(selector)
+        this.close_data()
+      }
+
+      show() {
+        this.elem.classList.toggle('is-active')
+        this.on_show()
+      }
+
+      close() {
+        this.elem.classList.toggle('is-active')
+        this.on_close()
+      }
+
+      close_data() {
+        var modalClose = this.elem.querySelectorAll("[data-bulma-modal='close'], .modal-background")
+        var that = this
+        modalClose.forEach(function (e) {
+          e.addEventListener("click", function () {
+
+            that.elem.classList.toggle('is-active')
+
+            var event = new Event('modal:close')
+
+            that.elem.dispatchEvent(event);
+          })
+        })
+      }
+
+      on_show() {
+        var event = new Event('modal:show')
+
+        this.elem.dispatchEvent(event);
+      }
+
+      addEventListener(event, callback) {
+        this.elem.addEventListener(event, callback)
+      }
+    }
+
+    var btn = document.querySelector("#btn-adicionar")
+    var mdl = new BulmaModal("#myModal")
+
+    btn.addEventListener("click", function () {
+      mdl.show()
+    })
+  </script>
+</body>
+
+</html>
