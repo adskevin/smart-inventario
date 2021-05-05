@@ -24,52 +24,55 @@
                 <p class="card-header-title">
                   Categorias
                 </p>
-                <button id="btn-adicionar" class="button is-primary is-medium">
+                <button id="btn-adicionar" class="button is-primary mt-1 mr-2 is-normal">
                   <span class="icon">
-                    <i class="fa fa-pen"></i>
+                    <i class="fa fa-plus"></i>
                   </span>
                   <span> Adicionar </span>
                 </button>
               </header>
-              <table class="table is-bordered is-striped is-narrow is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Descrição</th>
-                    <th style="width: 120px;">Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @each(category in categories)
-                    <tr>
-                      <td>
-                        {{ category.description }}
-                      </td>
-                      <td>
-                        <a id="btn-editars" class="button is-warning is-outlined" href="/editcategory/{{ category.id }}">
-                          <span class="icon is-small">
-                            <i class="fas fa-edit" aria-hidden="true"></i>
-                          </span>
-                          <span>Editar</span>
-                        </a>
-                        <form action="{{ 'deletecategory/' + category.id + '?_method=DELETE' }}" method="POST">
-                          {{ csrfField() }}
-                          <button type="submit" class="button is-danger is-outlined">
-                              <span class="icon is-small">
-                                  <i class="fa fa-times" aria-hidden="true"></i>
-                              </span>
-                              <span>Remover</span>
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                  @else
-                    <tr>
-                      <td colspan="3" class="has-text-centered">Nenhuma categoria foi criada ainda!</td>
-                    </tr>
-                  @endeach
-                </tbody>
-              </table>
-              <div class="card-content">
+                <div class='column is-12'>
+                  <table class="table is-bordered is-striped is-narrow is-fullwidth">
+                    <thead>
+                      <tr>
+                        <th>Descrição</th>
+                        <th style="width: 120px;">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @each(category in categories)
+                        <tr>
+                          <td>
+                            {{ category.description }}
+                          </td>
+                          <td class="is-flex is-justify-content-center"> 
+                              <div class=''>
+                                <a id="btn-editars" class="button is-warning is-outlined" href="/editcategory/{{ category.id }}">
+                                  <span class="icon is-small">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                  </span>
+                                </a>
+                              </div>
+                              <div class=''>
+                                <form action="{{ 'deletecategory/' + category.id + '?_method=DELETE' }}" method="POST">
+                                  {{ csrfField() }}
+                                  <button type="submit" class="button is-danger ml-2 is-outlined">
+                                      <span class="icon is-small">
+                                          <i class="fa fa-times" aria-hidden="true"></i>
+                                      </span>
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      @else
+                        <tr>
+                          <td colspan="3" class="has-text-centered">Nenhuma categoria foi criada ainda!</td>
+                        </tr>
+                      @endeach
+                    </tbody>
+                  </table>
               </div>
             </div>
           </div>

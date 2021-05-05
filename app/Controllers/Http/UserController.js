@@ -39,7 +39,7 @@ class UserController {
   }
 
   async signin ({ request, response, view, session }) {
-    return view.render('signin');
+    return view.render('signin', { name: session.get('name') });
   }
 
   async presetview ({ view }) {

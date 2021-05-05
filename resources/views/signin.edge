@@ -6,62 +6,87 @@
     <title>Smart Inventário - Cadastro</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
-</head>
+    {{ style('style') }}
+  </head>
   <body>
-  <section class="section">
-    <div class="container">
-      <form class="box" action="/newuser" method="POST">
-        {{ csrfField() }}
-        <div class="field">
-          <label class="label">Nome</label>
-          <div class="control">
-            <input name="name" class="input" type="text" placeholder="ex. Maria Joana" value={{ old('name', '') }}>
+  @!component('components/navbar', { name: name })
+  <section class="hero is-fullheight is-medium background-home is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class='column is-12'>
+            <div class="card is-rounded">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Novo Usuário
+                </p>
+              </header>
+              <form class="box" action="/newuser" method="POST">
+                {{ csrfField() }}
+                
+                <div class="columns">
+                  <div class="column is-6">
+                    <div class="field">
+                      <label class="label">Nome</label>
+                      <div class="control">
+                        <input name="name" class="input" type="text" placeholder="ex. Maria Joana" value={{ old('name', '') }}>
+                      </div>
+                      @if(getErrorFor('name'))
+                        <p class="help is-danger">O nome deve ter 3 caracteres ou mais</p>
+                      @endif
+                    </div>
+                    
+                    <div class="field">
+                      <label class="label">Senha</label>
+                      <div class="control">
+                        <input id="password" name="password" class="input" type="password" placeholder="********">
+                      </div>
+                      @if(getErrorFor('password'))
+                        <p class="help is-danger">Este campo deve ser preenchido</p>
+                      @endif
+                    </div>
+
+                    <div class="field">
+                      <label class="checkbox">
+                        <input name="admin" type="checkbox">
+                        Usuário Administrador
+                      </label>
+                    </div>
+
+                    <button type="submit" class="button is-primary">Enviar</button>
+                 
+                  </div>
+
+                  <div class="column is-6">
+                   
+                    <div class="field">
+                      <label class="label">Email</label>
+                      <div class="control">
+                        <input name="email" class="input" type="text" placeholder="ex. alex@exemplo.com" value={{ old('email', '') }}>
+                      </div>
+                      @if(getErrorFor('email'))
+                        <p class="help is-danger">Não entendemos este email</p>
+                      @endif
+                    </div>
+                   
+                    <div class="field">
+                      <label class="label">Confirmar Senha</label>
+                      <div class="control">
+                        <input id="confirmPassword" name="confirmPassword" class="input" type="password" placeholder="********">
+                      </div>
+                      <p id="rt-password-check" class="is-hidden help is-danger">As senhas devem ser iguais</p>
+                      @if(getErrorFor('confirmPassword'))
+                        <p class="help is-danger">Este campo deve ser preenchido</p>
+                      @endif
+                    </div>
+                 
+                  </div>
+
+              </form>
+            </div>
           </div>
-          @if(getErrorFor('name'))
-            <p class="help is-danger">O nome deve ter 3 caracteres ou mais</p>
-          @endif
         </div>
-
-        <div class="field">
-          <label class="label">Email</label>
-          <div class="control">
-            <input name="email" class="input" type="text" placeholder="ex. alex@exemplo.com" value={{ old('email', '') }}>
-          </div>
-          @if(getErrorFor('email'))
-            <p class="help is-danger">Não entendemos este email</p>
-          @endif
-        </div>
-
-        <div class="field">
-          <label class="label">Senha</label>
-          <div class="control">
-            <input id="password" name="password" class="input" type="password" placeholder="********">
-          </div>
-          @if(getErrorFor('password'))
-            <p class="help is-danger">Este campo deve ser preenchido</p>
-          @endif
-        </div>
-
-        <div class="field">
-          <label class="label">Confirmar Senha</label>
-          <div class="control">
-            <input id="confirmPassword" name="confirmPassword" class="input" type="password" placeholder="********">
-          </div>
-          <p id="rt-password-check" class="is-hidden help is-danger">As senhas devem ser iguais</p>
-          @if(getErrorFor('confirmPassword'))
-            <p class="help is-danger">Este campo deve ser preenchido</p>
-          @endif
-        </div>
-
-        <div class="field">
-          <label class="checkbox">
-            <input name="admin" type="checkbox">
-            Usuário Administrador
-          </label>
-        </div>
-
-        <button type="submit" class="button is-primary">Enviar</button>
-      </form>
+      </div>
     </div>
   </section>
   <script>
